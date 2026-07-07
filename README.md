@@ -71,10 +71,41 @@ App: http://localhost:5173
 
 ## Run tests
 
+### Backend unit tests
+
 ```bash
 cd backend
 pip install -r requirements-dev.txt
 pytest tests/ -q
+```
+
+### Playwright E2E tests
+
+Start from the `frontend` folder. Playwright will start the Flask API and Vite dev server automatically unless they are already running.
+
+```bash
+cd frontend
+npm install
+npm run test:e2e
+```
+
+Playwright is configured to use your locally installed Google Chrome (`channel: "chrome"`), so you do not need to download the bundled Chromium browser. If Chrome is not installed, run:
+
+```bash
+npx playwright install chromium
+```
+
+E2E scripts cover:
+- `e2e/register.spec.js` — register a new user
+- `e2e/login.spec.js` — login with valid credentials and invalid credentials
+- `e2e/logout.spec.js` — logout from dashboard and navbar
+- `e2e/auth-flow.spec.js` — full register → logout → login → logout flow
+
+Other useful commands:
+
+```bash
+npm run test:e2e:headed   # run with visible browser
+npm run test:e2e:ui       # open Playwright UI mode
 ```
 
 ## Notes
